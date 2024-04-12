@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app-deployment
-  namespace: application
+  namespace: final
 spec:
   replicas: 1
   selector:
@@ -13,7 +13,6 @@ spec:
       labels:
         app: employees
     spec:
-      serviceAccountName: clo835
       containers:
       - name: web-app
         image: 113222697619.dkr.ecr.us-east-1.amazonaws.com/clo835-app:latest
@@ -22,77 +21,10 @@ spec:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 8080
-        env:
-        - name: BUCKET_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: BUCKET_NAME
-        - name: OBJECT_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: OBJECT_NAME
-        - name: IMAGE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: IMAGE_URL
-        - name: HEADER_NAMES
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: HEADER_NAMES
-        - name: APP_COLOR
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: APP_COLOR
-
-        - name: DBHOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: DBHOST
-        - name: DBPORT
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: DBPORT
-        - name: DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: DATABASE
-        - name: HEADER_NAMES
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: HEADER_NAMES
-
-        - name: DBPWD
-          valueFrom:
-            secretKeyRef:
+        - containerPort: 81
+        envFrom:
+          - secretRef:
               name: mysql-secret
-              key: DBPWD
-        - name: DBUSER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: DBUSER
-        - name: AWS_SESSION_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: AWS_SESSION_TOKEN
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: AWS_ACCESS_KEY_ID
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: AWS_SECRET_ACCESS_KEY
+          - configMapRef:
+                name: app-config
+        

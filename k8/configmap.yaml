@@ -2,13 +2,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-config
-  namespace: application
+  namespace: final
 data:
   IMAGE_URL: '/background-image'
   BUCKET_NAME: "clo800backgroundimages"
   OBJECT_NAME: "senaca_image.png"
   HEADER_NAMES: "Teddy, Niharika, Tobe"
-  DBHOST: "10.244.0.52"
+  DBHOST: "192.168.20.115"
   DBPORT: "3306"
   DATABASE: "employees"
   APP_COLOR: "green"
