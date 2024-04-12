@@ -1,0 +1,11 @@
+terraform/
+*.tf
+
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+k8
+README.md
+runapp.sh
